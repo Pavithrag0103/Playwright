@@ -53,6 +53,7 @@ console.log(myarray2[1][0]);
 
 
 // loop to access array elements
+
 var myarr2:(string | number)[][]= [[1,3,"bee"],[1,"pavi"]]
 
 console.log("Reading date from array using for loop")

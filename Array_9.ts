@@ -21,7 +21,7 @@ console.log(values)
 var values:Array<string | number>=["apple","banana","mango",10];
 console.log(values)
 
-//Access array ekements
+//Access array elements
 
 var fruits:string[]=["apple","banana","mango"];
 

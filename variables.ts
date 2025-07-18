@@ -7,7 +7,7 @@ console.log(message);
 
 
 Day 1
--> Typescriot - statical program language
+-> Typescript - statical program language
 -> Features - used in cross platform , oops , DOM manipulation , ES 6 features
 -> open source
 

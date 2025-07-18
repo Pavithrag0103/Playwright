@@ -48,15 +48,16 @@ console.log(myarray2[0][2]);
 console.log(myarray2[1][0]);
 
 
-*/
+
 
 
 
 // loop to access array elements
 
+
 var myarr2:(string | number)[][]= [[1,3,"bee"],[1,"pavi"]]
 
-console.log("Reading date from array using for loop")
+console.log(myarr2)
 
 for (var i=0;i<myarr2.length;i++)
 {
@@ -65,7 +66,19 @@ for (var i=0;i<myarr2.length;i++)
         console.log(myarr2[i][j]);
     }
 }
+*/
 
+
+var myarr2:(string | number)[][]= [[10,"xyz"],["abc",100]]
+
+
+for(var i in myarr2)
+{
+    for (var j in myarr2[i])
+    {
+        console.log(myarr2[i][j])
+    }
+}
 
 
 

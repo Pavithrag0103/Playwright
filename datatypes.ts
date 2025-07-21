@@ -9,7 +9,7 @@
 
 
 user defined data types
-1. array 
+1.array 
 2.class
 3.touple
 4.enum

@@ -1,6 +1,15 @@
-const {test,expect}=require('@playwright/test');
+const { test, expect } = require('@playwright/test');
 
-test('Home',async({page})=>{       //page is fixture  ... promise will intialize
-   await page.goto('https://www.demoblaze.com/');  //await will wait till the page loaded(promise)
-   
-})
+test('Home', async ({ page }) => {
+  await page.goto('https://automationteststore.com/');
+
+  const pageTitle = await page.title();
+  console.log('Page title is', pageTitle);
+
+  await expect(page).toHaveTitle('A place to practice your automation skills!');
+
+  const pageURL = await page.url();
+  console.log('Page URL is', pageURL);
+
+  await expect(page).toHaveURL('https://automationteststore.com/');
+});

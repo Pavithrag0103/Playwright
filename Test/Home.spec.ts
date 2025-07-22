@@ -13,3 +13,5 @@ test('Home', async ({ page }) => {
 
   await expect(page).toHaveURL('https://automationteststore.com/');
 });
+
+

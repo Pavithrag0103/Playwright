@@ -17,7 +17,9 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: [['html', { open: 'on-end' }], ['json', { outputFile: './test-results/report.json' }], ['allure-playwright']],
   use: {
-    baseURL: process.env.BASE_URL,
+    channel: 'msedge',
+   
+  
     storageState: 'storageState.json',
     headless: false,
     viewport: { width: 1920, height: 1080 },
@@ -27,6 +29,7 @@ export default defineConfig({
     trace: 'retain-on-failure',
   },
   projects: [
+
     { name: 'Microsoft Edge', use: { channel: 'msedge' } },
     //{ name: 'chromium', use: { ...devices['Desktop Chrome'] } },
     //{ name: 'firefox', use: { ...devices['Desktop Firefox'] } },

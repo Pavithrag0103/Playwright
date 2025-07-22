@@ -1,26 +1,37 @@
+//import * as dotenv from 'dotenv';
+import * as path from 'path';
+import 'dotenv/config';
 import { defineConfig, devices } from '@playwright/test';
+
+const env = process.env.ENV || 'dev';
+//dotenv.config({ path: path.resolve(__dirname, `.env.${env}`) });
 
 export default defineConfig({
   testDir: './tests',
-  testMatch: ['*.spec.ts'],
+  globalSetup: require.resolve('./global-setup'),
+  timeout: 30 * 1000,
+  expect: { timeout: 30000 },
   fullyParallel: true,
-  reporter: 'html',
-  retries: 0,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 1 : undefined,
+  reporter: [['html', { open: 'on-end' }], ['json', { outputFile: './test-results/report.json' }], ['allure-playwright']],
   use: {
-    trace: 'on-first-retry',
+    baseURL: process.env.BASE_URL,
+    storageState: 'storageState.json',
     headless: false,
+    viewport: { width: 1920, height: 1080 },
+    ignoreHTTPSErrors: true,
     screenshot: 'on',
     video: 'on',
+    trace: 'retain-on-failure',
   },
-
-  // ✅ Correctly placed `projects` section
   projects: [
-    {
-      name: 'Microsoft Edge',
-      use: {
-        ...devices['Desktop Edge'],
-        channel: 'msedge', // tells Playwright to use Edge browser
-      },
-    },
+    { name: 'Microsoft Edge', use: { channel: 'msedge' } },
+    //{ name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    //{ name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    //{ name: 'webkit', use: { ...devices['Desktop Safari'] } },
   ],
+  outputDir: 'test-results/',
 });
+ 

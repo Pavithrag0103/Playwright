@@ -269,10 +269,6 @@ await expect(content.includes('India')).toBeTruthy();
 
 // Check presence of value in dropdown
 
-const { test, expect } = require('@playwright/test');
-
-test('Check France in country dropdown', async ({ page }) => {
-  await page.goto('https://testautomationpractice.blogspot.com/');
 
 
   /*
@@ -292,28 +288,150 @@ test('Check France in country dropdown', async ({ page }) => {
   expect(status).toBeTruthy();
 });
 
-*/
+
 
 
 //dropdown using loop 
 
 
+import { test, expect } from '@playwright/test';
+
+test('Select France from country dropdown', async ({ page }) => {
+  await page.goto('https://testautomationpractice.blogspot.com/');
+
   const options = await page.$$('#country option');
+  let status = false;
 
   for (const option of options) {
-    let value = await option.textContent();
-    if (value.includes('France')) {
-      await page.selectOption('#country',value);
+    const label = await option.textContent(); // visible text
+    const valueAttr = await option.getAttribute('value'); // actual <option value="...">
+
+    if (label?.includes('France') && valueAttr) {
+      await page.selectOption('#country', valueAttr); // select using the value attribute
+      status = true;
       break;
     }
   }
 
-  expect(status).toBeTruthy();
-  await page.waitForTimeOut(5000);
+  expect(status).toBeTruthy(); // assertion
+  await page.waitForTimeout(5000); // wait to observe selection
 });
 
 
 
+//DAY-12
 
 
 
+
+
+import { test, expect } from '@playwright/test';
+
+test('Select dropdown', async ({ page }) => {
+  await page.goto('https://testautomationpractice.blogspot.com/');
+
+  await page.selectOption('#colors',['Blue','Red'])
+  await page.waitForTimeout(5000);
+
+})
+
+
+//DAY-13
+
+Bootstrap multi Select
+
+import { test, expect } from '@playwright/test';
+
+test('Select dropdown', async ({ page }) => {
+  await page.goto('https://www.jquery-az.com/boots/demo.php?ex=63.0_2');
+await page.locator('.multiselect').click()
+
+const options = await page.$$('#ul>li label');
+
+for let option of options)
+  {
+    const value=await option.textContent();
+    if(value.includes('Angular')) || value={.includes('Java')}
+    {
+      await option.click()
+    }
+
+  }
+
+
+DAY-27
+
+HOOKS
+
+beforeEach  : This hook is executed before each individual test.
+afterEach   : This hook is executed after each individual test.
+beforeAll   : This hook is executed once before any of the tests start running.
+afterAll    : This hook is executed once after all the tests have been run.
+
+
+const { test, expect } = require('@playwright/test');
+
+  test.beforeEach( async ({ browser }) => {
+  page=await browser.newpage();
+  await page.goto('https://automationteststore.com/');
+
+  const pageTitle = await page.title();
+  console.log('Page title is', pageTitle);
+
+  await expect(page).toHaveTitle('A place to practice your automation skills!');
+
+  const pageURL = await page.url();
+  console.log('Page URL is', pageURL);
+
+  await expect(page).toHaveURL('https://automationteststore.com/');
+});
+
+//logout
+
+test.afterEach(async())=>{
+await page.locator('#logout2').click
+()})
+
+
+
+DAY - 29
+
+SCREENSHOTS
+
+
+
+//Selected area
+
+import { test, expect } from '@playwright/test';
+
+test('Screenshot', async ({ page }) => {
+  await page.goto('https://testautomationpractice.blogspot.com/');
+
+  await page.screenshot({path:'tests/screen/'+Date.now+'Evidence.png'})
+  });
+
+ 
+
+  //Full page
+
+  import { test, expect } from '@playwright/test';
+
+test('Screenshot', async ({ page }) => {
+  await page.goto('https://testautomationpractice.blogspot.com/');
+
+  await page.screenshot({path:'tests/screen/'+Date.now+'Evidence.png',fullPage:true})
+  });
+
+
+     */
+
+
+  //particular element
+
+    import { test, expect } from '@playwright/test';
+
+test('Screenshot', async ({ page }) => {
+  await page.goto('https://automationteststore.com/');
+
+  await page.locator("//body/div[@class='container-fixed']/div[@id='maincontainer']/div[@class='container-fluid']/div[@class='col-md-12 col-xs-12 mt20']/section[@id='featured']/div[@class='container-fluid']/div[@id='block_frame_featured_1769']/div[@class='thumbnails list-inline']/div[1]").screenshot({path:'tests/screen/'+Date.now+'prod.png',fullPage:true})
+  });

@@ -7,9 +7,9 @@ dotenv.config();
 const EMAIL = process.env.EMAIL as string;
 const PASSWORD = process.env.PASSWORD as string;
 
-if (!EMAIL || !PASSWORD) {
-  throw new Error('EMAIL or PASSWORD is not defined in .env file.');
-}
+// if (!EMAIL || !PASSWORD) {
+//   throw new Error('EMAIL or PASSWORD is not defined in .env file.');
+// }
 
 test('Full E2E Flow', async ({ page }) => {
   test.setTimeout(180_000); // 3-minute timeout

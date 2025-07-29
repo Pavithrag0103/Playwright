@@ -423,7 +423,7 @@ test('Screenshot', async ({ page }) => {
   });
 
 
-     */
+    
 
 
   //particular element
@@ -435,3 +435,37 @@ test('Screenshot', async ({ page }) => {
 
   await page.locator("//body/div[@class='container-fixed']/div[@id='maincontainer']/div[@class='container-fluid']/div[@class='col-md-12 col-xs-12 mt20']/section[@id='featured']/div[@class='container-fluid']/div[@id='block_frame_featured_1769']/div[@class='thumbnails list-inline']/div[1]").screenshot({path:'tests/screen/'+Date.now+'prod.png',fullPage:true})
   });
+
+
+
+
+  // ADD SCREENSHPT IN CONFIG FILE
+const { test, expect } = require('@playwright/test');
+
+test('Home', async ({ page }) => {
+await page.goto('https://demo.nopcommerce.com/register')
+await expect(page).toHaveURL('https://demo.nopcommerce.com/register')
+
+
+await expect(page).toHaveTitle('nopCommerce demo store. Register')
+const logo=await page.locator('.header-logo')
+await expect(logo).toBeVisible()
+});
+
+
+//Day - 30
+
+record a Video
+ */
+
+const { test, expect } = require('@playwright/test');
+
+test('Home', async ({ page }) => {
+await page.goto('https://demo.nopcommerce.com/register')
+await expect(page).toHaveURL('https://demo.nopcommerce.com/register')
+
+
+await expect(page).toHaveTitle('nopCommerce demo store. Register')
+const logo=await page.locator('.header-logo')
+await expect(logo).toBeVisible()
+});

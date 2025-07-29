@@ -2,9 +2,6 @@
   "name": "playwright",
   "version": "1.0.0",
   "main": "index.js",
-  "directories": {
-    "test": "tests"
-  },
   "scripts": {},
   "repository": {
     "type": "git",
@@ -23,6 +20,6 @@
     "@types/node": "^24.1.0"
   },
   "dependencies": {
-    "dotenv": "^17.2.1"
+    "playwright": "^1.54.1"
   }
 }

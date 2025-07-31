@@ -43,32 +43,25 @@ test('Navigate and select P-Code from dropdown', async ({ page }) => {
   await page.waitForTimeout(2000);
   //await page.pause()
   await page.getByRole('link', { name: '-0000042' }).click();
-  // Step 9: Select a grid cell to interact (example: user name cell)
-  await page.getByRole('gridcell', { name: 'Mace, Nikki' }).click();
 
-  // Step 10: Open 'REQUEST DETAILS' tab
- 
 
-  // Step 11: Final wait to ensure request details are fully loaded
   await page.waitForLoadState('load');
 
+const firstRow = page.locator('tbody tr').first();
+
+// 2. Locate the first month cell (assuming class naming like DRAG_MONTH_1 for the first month)
+const firstMonthCell = firstRow.locator('.a-GV-cell.DRAG_MONTH_1');
+
+await firstMonthCell.click();
+await page.waitForTimeout(300); // wait for inline editor to appear
+
+// 3. Wait for the textbox input that should be visible after dblclick (input for first month)
+const monthInput = page.getByRole('textbox').first();
+
+await monthInput.waitFor({ state: 'visible' });
+
+// 4. Fill the hours, e.g., assign '2'
+await monthInput.fill('2');
 
 
-
-  // await page.getByRole('button', { name: 'P-Code' }).click();
-  // await page.getByRole('searchbox', { name: 'Filter P-Code' }).click();
-  // await page.getByRole('searchbox', { name: 'Filter P-Code' }).fill(PCODE);
-  // await page.getByRole('option', { name: PCODE }).click();
-  // await page.waitForLoadState('load');
-  // //await page.pause()
-  // await page.getByRole('button', { name: 'Region' }).click();
-  // await page.waitForLoadState('load');
-  // await page.getByRole('combobox', { name: 'Search' }).click();
-  // await page.getByRole('searchbox', { name: 'Filter Region' }).click();
-  // await page.getByRole('searchbox', { name: 'Filter Region' }).fill('NA');
-  // await page.getByRole('option', { name: 'NA' }).click();
-  // await page.getByRole('button', { name: 'Country' }).click();
-  // await page.getByRole('searchbox', { name: 'Filter Country' }).click();
-  // await page.getByRole('searchbox', { name: 'Filter Country' }).fill('United');
-  // await page.getByRole('option', { name: 'United States of America (the' }).click();
 });

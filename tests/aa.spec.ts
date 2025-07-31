@@ -44,17 +44,28 @@ test('Login and navigate to Central Risk Manager', async ({ page }) => {
   //await page.goto('https://bid2revrec-dev.syneoshealth.com/ords/f?p=1204:19:2792660425964::::P19_ROLE_ID,P19_YEAR:34,1&cs=13ris8WtfVGyEPeQCfq8h8FDyHkn5NAKrvIO-LueEIzXvmqfClJhivjRSJqPT-FLjs99L5-oUOmBbxi0EP3SSww');
   await page.waitForLoadState('load');
   await page.getByRole('tab', { name: 'NA' }).click();
-  await page.pause()
+  //await page.pause()
 
-  await page.locator('tr:nth-child(3) > .a-GV-cell.u-tE.no_warning.COPY_CELL.DRAG_MONTH_1').click();
-  await page.locator('.a-GV-cell.u-tE.no_warning.COPY_CELL.DRAG_MONTH_1').dblclick();
-  await page.getByRole('textbox', { name: 'Jul-' }).fill('1');
-  await page.locator('.a-GV-row.is-hover > .a-GV-cell.u-tE.no_warning.COPY_CELL.DRAG_MONTH_2').click();
-  await page.getByRole('textbox', { name: 'Aug-' }).press('ArrowRight');
-  await page.getByRole('textbox', { name: 'Aug-' }).fill('1');
-  await page.getByRole('button', { name: 'SAVE' }).click();
-  await page.goto('https://bid2revrec-dev.syneoshealth.com/ords/f?p=1204:19:16574291340447:::::');
-  await page.getByRole('button', { name: 'SUBMIT RESOURCE REQUESTS' }).click();
-  await page.getByRole('button', { name: 'YES' }).click();
-  await page.goto('https://bid2revrec-dev.syneoshealth.com/ords/f?p=1204:19:16192432590046:::::');
+
+
+
+  // Step 7 - Click on a specific cell in the table
+await page.locator('tr:nth-child(3) > .a-GV-cell.u-tE.no_warning.COPY_CELL.DRAG_MONTH_1').click();
+await page.locator('.a-GV-cell.u-tE.no_warning.COPY_CELL.DRAG_MONTH_1').first().dblclick();
+
+// Step 8 - Fill July column
+await page.getByRole('textbox', { name: /Jul-/ }).fill('1');
 });
+
+//   await page.locator('tr:nth-child(3) > .a-GV-cell.u-tE.no_warning.COPY_CELL.DRAG_MONTH_1').click();
+//   await page.locator('.a-GV-cell.u-tE.no_warning.COPY_CELL.DRAG_MONTH_1').dblclick();
+//   await page.getByRole('textbox', { name: 'Jul-' }).fill('1');
+//   await page.locator('.a-GV-row.is-hover > .a-GV-cell.u-tE.no_warning.COPY_CELL.DRAG_MONTH_2').click();
+//   await page.getByRole('textbox', { name: 'Aug-' }).press('ArrowRight');
+//   await page.getByRole('textbox', { name: 'Aug-' }).fill('1');
+//   await page.getByRole('button', { name: 'SAVE' }).click();
+//   await page.goto('https://bid2revrec-dev.syneoshealth.com/ords/f?p=1204:19:16574291340447:::::');
+//   await page.getByRole('button', { name: 'SUBMIT RESOURCE REQUESTS' }).click();
+//   await page.getByRole('button', { name: 'YES' }).click();
+//   await page.goto('https://bid2revrec-dev.syneoshealth.com/ords/f?p=1204:19:16192432590046:::::');
+// });

@@ -22,6 +22,7 @@ const REGION = 'NA';
 test('Navigate and select P-Code from dropdown', async ({ page }) => {
   // Go to the page
   await page.goto('https://bid2revrec-dev.syneoshealth.com/ords/f?p=2204');
+  //await page.waitForLoadState('load')
   await page.waitForLoadState('domcontentloaded');
 
   // Click the 'REQUESTS' link
@@ -37,31 +38,35 @@ test('Navigate and select P-Code from dropdown', async ({ page }) => {
   await page.getByText('Region: NA').click();
   await page.waitForLoadState('load');
   await page.getByRole('combobox', { name: 'Search' }).fill('U');
+  await page.getByText('Country: United States of').waitFor({ state: 'visible', timeout: 10000 });
   await page.getByText('Country: United States of').click();
   await page.waitForLoadState('load');
-  await page.getByRole('button', { name: 'Save' }).click();
-  await page.waitForTimeout(2000);
-  //await page.pause()
+
   await page.getByRole('link', { name: '-0000042' }).click();
 
+  //await page.pause()
+const assignmentGrid = page.getByRole('grid', { name: /Resource details1/i });
+await assignmentGrid.waitFor({ state: 'visible', timeout: 15000 });
 
-  await page.waitForLoadState('load');
-
-const firstRow = page.locator('tbody tr').first();
-
-// 2. Locate the first month cell (assuming class naming like DRAG_MONTH_1 for the first month)
+const firstRow = assignmentGrid.locator('tbody tr').first();
 const firstMonthCell = firstRow.locator('.a-GV-cell.DRAG_MONTH_1');
 
+//await firstMonthCell.waitFor({ state: 'visible', timeout: 15000 });
+//await firstMonthCell.scrollIntoViewIfNeeded();
+
 await firstMonthCell.click();
-await page.waitForTimeout(300); // wait for inline editor to appear
+await page.waitForTimeout(200);
 
-// 3. Wait for the textbox input that should be visible after dblclick (input for first month)
 const monthInput = page.getByRole('textbox').first();
+await monthInput.waitFor({ state: 'visible', timeout: 10000 });
+await monthInput.fill('1');
 
-await monthInput.waitFor({ state: 'visible' });
 
-// 4. Fill the hours, e.g., assign '2'
-await monthInput.fill('2');
-
+  await page.getByRole('button', { name: 'SAVE' }).click();
+  await page.getByRole('button', { name: 'SUBMIT' }).click();
+  await page.getByRole('button', { name: 'YES' }).click();
+  await page.locator('#admin_card_breadcrumb').getByRole('img').click();
+  await page.waitForLoadState('load')
+  await page.getByRole('link', { name: 'DIRECT ASSIGN' }).click();
 
 });

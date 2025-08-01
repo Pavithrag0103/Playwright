@@ -42,24 +42,18 @@ test('Navigate and select P-Code from dropdown', async ({ page }) => {
   await page.getByText('Country: United States of').click();
   await page.waitForLoadState('load');
 
+  
+
   await page.getByRole('link', { name: '-0000042' }).click();
+   await page.getByRole('heading', { name: 'Request Details' }).waitFor({ state: 'visible', timeout: 15000 });
 
-  //await page.pause()
-const assignmentGrid = page.getByRole('grid', { name: /Resource details1/i });
-await assignmentGrid.waitFor({ state: 'visible', timeout: 15000 });
+  // Locate the assignment grid accurately by its accessible name or other stable selector
+  const assignmentGrid = page.getByRole('grid', { name: /Resource details1/i });
+  await assignmentGrid.waitFor({ state: 'visible', timeout: 15000 });
+  await page.waitForLoadState('load');
+  await page.waitForTimeout(50000)
+  await page.pause()
 
-const firstRow = assignmentGrid.locator('tbody tr').first();
-const firstMonthCell = firstRow.locator('.a-GV-cell.DRAG_MONTH_1');
-
-//await firstMonthCell.waitFor({ state: 'visible', timeout: 15000 });
-//await firstMonthCell.scrollIntoViewIfNeeded();
-
-await firstMonthCell.click();
-await page.waitForTimeout(200);
-
-const monthInput = page.getByRole('textbox').first();
-await monthInput.waitFor({ state: 'visible', timeout: 10000 });
-await monthInput.fill('1');
 
 
   await page.getByRole('button', { name: 'SAVE' }).click();

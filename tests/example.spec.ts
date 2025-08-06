@@ -21,7 +21,7 @@ const REGION = 'NA';
 
 test('Navigate and select P-Code from dropdown', async ({ page }) => {
   // Go to the page
-  await page.goto('https://bid2revrec-dev.syneoshealth.com/ords/f?p=2204', { timeout: 60000 }); // 60 seconds
+  await page.goto('https://bid2revrec-dev.syneoshealth.com/ords/f?p=2204', { timeout: 70000 }); // 60 seconds
   //await page.waitForLoadState('load')
   await page.waitForLoadState('domcontentloaded');
 
@@ -45,10 +45,13 @@ test('Navigate and select P-Code from dropdown', async ({ page }) => {
   
 
   await page.getByRole('link', { name: '-0000042' }).click({ timeout: 5000 });
+await page.getByRole('heading', { name: /Request Summary/i }).waitFor({ state: 'visible', timeout: 30000 });
+
+// Wait for assignment grid to appear (instead of waitForLoadState)
+const assignmentGrid = page.getByRole('grid', { name: /Resource details1/i });
+await assignmentGrid.waitFor({ state: 'visible', timeout: 15000 });
 
   // Locate the assignment grid accurately by its accessible name or other stable selector
-  const assignmentGrid = page.getByRole('grid', { name: /Resource details1/i });
-  await assignmentGrid.waitFor({ state: 'visible', timeout: 15000 });
   await page.waitForLoadState('load');
 
   //await page.pause()

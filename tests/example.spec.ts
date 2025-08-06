@@ -44,7 +44,11 @@ test('Navigate and select P-Code from dropdown', async ({ page }) => {
 
   
 
-  await page.getByRole('link', { name: '-0000042' }).click({ timeout: 5000 });
+await Promise.all([
+  page.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 30000 }),
+  page.getByRole('link', { name: '-0000042' }).click()
+]);
+
 await page.getByRole('heading', { name: /Request Summary/i }).waitFor({ state: 'visible', timeout: 30000 });
 
 // Wait for assignment grid to appear (instead of waitForLoadState)

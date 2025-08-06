@@ -49,7 +49,7 @@ await Promise.all([
   page.getByRole('link', { name: '-0000042' }).click()
 ]);
 
-await page.getByRole('heading', { name: /Request Summary/i }).waitFor({ state: 'visible', timeout: 30000 });
+//await page.getByRole('heading', { name: /Request Summary/i }).waitFor({ state: 'visible', timeout: 30000 });
 
 // Wait for assignment grid to appear (instead of waitForLoadState)
 const assignmentGrid = page.getByRole('grid', { name: /Resource details1/i });

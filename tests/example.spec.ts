@@ -61,7 +61,7 @@ await assignmentGrid.waitFor({ state: 'visible', timeout: 15000 });
   //await page.pause()
   await page.getByRole('gridcell', { name: '3', exact: true }).click();
   await page.getByLabel('', { exact: true }).dblclick();
-  await page.getByLabel('', { exact: true }).fill('7');
+  await page.getByLabel('', { exact: true }).fill('2');
 
 
 

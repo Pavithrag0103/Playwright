@@ -55,24 +55,22 @@ await Promise.all([
 const assignmentGrid = page.getByRole('grid', { name: /Resource details1/i });
 await assignmentGrid.waitFor({ state: 'visible', timeout: 15000 });
 
-  // Locate the assignment grid accurately by its accessible name or other stable selector
-  await page.waitForLoadState('load');
-  await page.pause()
+// Get the first row in the grid body
+const firstRow = assignmentGrid.locator('tbody tr').first();
 
-  //await page.pause()
-  const monthCell = page.locator('.a-GV-cell.u-tE.assign_demand_month.month-Aug-25.seq_ids');
+// Narrow to the cell in first row with that class (the Aug-25 month cell)
+const monthCell = firstRow.locator('.a-GV-cell.u-tE.assign_demand_month.month-Aug-25.seq_ids');
+
 await monthCell.waitFor({ state: 'visible', timeout: 15000 });
-
-// Scroll into view in case it's offscreen
 await monthCell.scrollIntoViewIfNeeded();
 
-// Double-click the cell to activate the editor
+// Now interact with this single cell
 await monthCell.dblclick();
 
-// Wait for the input (textbox) to appear, then fill it
 const monthInput = page.getByRole('textbox').first();
 await monthInput.waitFor({ state: 'visible', timeout: 10000 });
 await monthInput.fill('2');
+
 
 
 

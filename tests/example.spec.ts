@@ -59,20 +59,23 @@ await assignmentGrid.waitFor({ state: 'visible', timeout: 15000 });
   await page.waitForLoadState('load');
   await page.pause()
 
-const firstRow = assignmentGrid.locator('tbody tr').first();
+  //await page.pause()
+  const monthCell = page.locator('.a-GV-cell.u-tE.assign_demand_month.month-Aug-25.seq_ids');
+await monthCell.waitFor({ state: 'visible', timeout: 15000 });
 
-  // Target the month cell by stable CSS class (replace this class with your actual month column's class)
-  const monthCell = firstRow.locator('.a-GV-cell.DRAG_MONTH_1');
-  await monthCell.waitFor({ state: 'visible', timeout: 15000 });
-  await monthCell.scrollIntoViewIfNeeded();
+// Scroll into view in case it's offscreen
+await monthCell.scrollIntoViewIfNeeded();
 
-  // Activate cell editor by double-click
-  await monthCell.dblclick();
+// Double-click the cell to activate the editor
+await monthCell.dblclick();
 
-  // Wait for input textbox to appear and fill in value ignoring previous content
-  const monthInput = page.getByRole('textbox').first();
-  await monthInput.waitFor({ state: 'visible', timeout: 10000 });
-  await monthInput.fill('2');
+// Wait for the input (textbox) to appear, then fill it
+const monthInput = page.getByRole('textbox').first();
+await monthInput.waitFor({ state: 'visible', timeout: 10000 });
+await monthInput.fill('2');
+
+
+
 
 
 
